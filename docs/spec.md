@@ -2,8 +2,11 @@
 ## 1. Introduction
 Raven is a fast, pragmatic general-purpose language mixing imperative and object-oriented programming.
 
-## 2. Basic concepts
-This section covers most basic semantical rules of Raven.
+> You are reading a very early version of the specification, which means there might be some specific details missing, information might be vage/poor, etc. \
+> If you notice any errors or have suggestions, please open an issue or a pull request.
+
+## 2. Semantics
+This section covers most semantical rules inside of Raven.
 
 ### 2.1. Programs
 Each Raven program consists of:
@@ -47,6 +50,21 @@ To declare an immutable variable, the `const` keyword is used:
 const you = "cool"; // Let "you" be a string with the constant value "cool"
 you = "even cooler"; // ERROR: "you" is constant.
 ```
+
+All variables have a scope. The scope determines who can access the variable:
+```
+const x = 1; // accessible in all the program
+
+function main() int {
+  const y = 2; // accessible inside the main function
+  (function() {
+    const z = 3; // accessible only inside this anonymous function
+  })();
+  return 0;
+}
+```
+
+Variable shadowing (redeclaring a variable in a lower scope) is illegal in Raven. If we, for example, redeclared "x" in the main function, we would get a compile error.
 
 #### 2.3.2. Functions
 Functions, in Ravn, are values that when called run a chain of statements (=block). Functions have:
@@ -98,3 +116,10 @@ function main() int {
 }
 ```
 As we passed `5.0` and `2.5` as arguments when creating the object, the fields "x" and "y" will have those values respectively. You may choose to include the name of the arguments when creating this object, although this is completely optional.
+
+### 2.4. Statements
+A statement is code that solely causes a side effect (a new variable, repetition of an action through a loop...) and has no return value.
+
+- `let` *i* `=` *exp* `;`\
+  `const` *i* `=` *exp* `;`\
+        **Variable declaration**: declares a new variable, mutable (`let`) or immutable (``)
