@@ -1,0 +1,18 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-std=c11",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/main.o",
+      "src/main.c"
+    ],
+    "directory": "/home/landrei/Projects/raven/compiler",
+    "file": "/home/landrei/Projects/raven/compiler/src/main.c",
+    "output": "/home/landrei/Projects/raven/compiler/build/main.o"
+  }
+]
