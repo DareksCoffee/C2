@@ -1,10 +1,10 @@
-decorator safeCall(f: (void)int)) {
+function safeCall(f: (void)int) {
   return function() int {
     let res: int;
     try {
       res = f();
     } catch (msg) {
-      print("${f} threw: ${msg}")
+      print("${f} threw: ${msg}");
       return 0;
     }
     return res;

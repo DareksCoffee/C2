@@ -18,7 +18,7 @@ function pong(chan: channel) int {
 }
 
 function main() int {
-  channel chan; // Channel
+  let chan = new channel; // Channel
   let task1 = spawn ping(chan); // TaskHandle
   let task2 = spawn pong(chan); // TaskHandle
 

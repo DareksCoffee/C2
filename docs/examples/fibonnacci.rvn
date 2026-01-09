@@ -1,5 +1,7 @@
 function printFibonnaci(numbers: int) void {
-	let a, b, next = 0, 1, 0;
+	let a = 0
+	let b = 1
+	let next = 0;
 	
 	let i = 0;
 	until (i < numbers) {
@@ -10,7 +12,8 @@ function printFibonnaci(numbers: int) void {
 		} else {
 			next = a + b;
 			printf("%d\n", next);
-			a, b = b, next;
+			a = b;
+			b = next;
 		}
 		i++;
 	}

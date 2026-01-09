@@ -12,10 +12,10 @@ function main() int {
   let day = WeekDay.Thursday;
 
   switch (day) {
-    case (.Monday, .Tuesday, .Wednesday, .Thursday, .Friday) {
+    case (WeekDay.Monday, WeekDay.Tuesday, WeekDay.Wednesday, WeekDay.Thursday, WeekDay.Friday) {
       print("Work :(");
     },
-    case (.Saturday, .Sunday) {
+    case (WeekDay.Saturday, WeekDay.Sunday) {
       print("Free from work!");
     }
   }

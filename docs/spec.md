@@ -455,6 +455,4 @@ Try-catch will safely run a block, and allow the user to access the error and ha
 
 # 3. Syntax
 
-Grammar:
-**TODO**
-
+> **You can find the grammar [here](./grammar.md)**
