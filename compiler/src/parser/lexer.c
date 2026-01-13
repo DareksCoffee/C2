@@ -1,4 +1,5 @@
 #include "lexer.h"
+#include "colors.h"
 #include "rvnerror.h"
 #include "rvnutils.h"
 
@@ -20,10 +21,13 @@
     THROW("Out of bounds when lexing. Expected more characters.");             \
   }
 
-token_t *new_token(const char *txt, token_type_t type) {
+token_t *new_token(const char *txt, token_type_t type, unsigned long line,
+                   unsigned long col) {
   token_t *token = malloc(sizeof(token_t));
   token->txt = (char *)txt;
   token->type = type;
+  tkpos_t pos = {line, col};
+  token->position = pos;
   return token;
 }
 
@@ -106,8 +110,8 @@ token_list_t *lex(const char *source) {
   int source_len = strlen(source);
   token_list_t *tokens = new_token_list();
   char c;
-  int line = 1;
-  int col = 1;
+  unsigned long line = 1;
+  unsigned long col = 1;
 
   for (int i = 0; i < source_len; i++) {
     c = source[i];
@@ -137,9 +141,9 @@ token_list_t *lex(const char *source) {
 
       while (is_digit_char(c) == 1) {
         strcatchr(num, c);
-        SKIP_CHAR_IF_INBOUNDS
+        SKIP_CHAR_IF_INBOUNDS;
       }
-      append_to_token_list(tokens, new_token(num, T_NUMBER));
+      append_to_token_list(tokens, new_token(num, T_NUMBER, line, col));
 
       continue;
     }
@@ -159,7 +163,8 @@ token_list_t *lex(const char *source) {
             SKIP_CHAR_IF_INBOUNDS;
           }
           SKIP_CHAR_IF_INBOUNDS;
-          append_to_token_list(tokens, new_token(interpol, T_STR_INTER));
+          append_to_token_list(tokens,
+                               new_token(interpol, T_STR_INTER, line, col));
           if (c == end) {
             break;
           }
@@ -167,14 +172,14 @@ token_list_t *lex(const char *source) {
         strcatchr(str, c);
         SKIP_CHAR_IF_INBOUNDS;
       }
-      append_to_token_list(tokens, new_token(str, T_STRING));
+      append_to_token_list(tokens, new_token(str, T_STRING, line, col));
       continue;
     }
 
     if (is_punct_char(c)) {
       char *punct = malloc(source_len + 1);
       strcatchr(punct, c);
-      append_to_token_list(tokens, new_token(punct, T_PUNCTUATION));
+      append_to_token_list(tokens, new_token(punct, T_PUNCTUATION, line, col));
       continue;
     }
 
@@ -186,7 +191,7 @@ token_list_t *lex(const char *source) {
           (op[0] == '!' && c == '=') || (op[0] == '=' && c == '=')) {
         strcatchr(op, c);
       }
-      append_to_token_list(tokens, new_token(op, T_OPERATOR));
+      append_to_token_list(tokens, new_token(op, T_OPERATOR, line, col));
       continue;
     }
 
@@ -200,15 +205,15 @@ token_list_t *lex(const char *source) {
 
       for (size_t j = 0; j <= 26; j++) {
         if (strcmp(keywords[j].word, id) == 0) {
-          append_to_token_list(tokens,
-                               new_token(id, keywords[j].assigned_type));
+          append_to_token_list(
+              tokens, new_token(id, keywords[j].assigned_type, line, col));
           i--;
           goto was_reserved;
         }
       }
 
       i--;
-      append_to_token_list(tokens, new_token(id, T_ID));
+      append_to_token_list(tokens, new_token(id, T_ID, line, col));
     was_reserved:
       continue;
     }
@@ -220,7 +225,7 @@ token_list_t *lex(const char *source) {
         strcatchr(deco, c);
         SKIP_CHAR_IF_INBOUNDS;
       }
-      append_to_token_list(tokens, new_token(deco, T_DECORATOR));
+      append_to_token_list(tokens, new_token(deco, T_DECORATOR, line, col));
       continue;
     }
 
@@ -235,16 +240,17 @@ token_list_t *lex(const char *source) {
           strcatchr(tag, c);
           SKIP_CHAR_IF_INBOUNDS;
         }
-        append_to_token_list(tokens, new_token(tag, T_TAG));
+        append_to_token_list(tokens, new_token(tag, T_TAG, line, col));
         continue;
       }
     }
 
-    THROW("Unrecognized character '%c' at line %d, column %d\n", c, line, col);
+    THROW("Unrecognized character '%c' at line %lu, column %lu\n", c, line,
+          col);
   }
 
   char eof[2] = {'\0'};
-  append_to_token_list(tokens, new_token(eof, T_EOF));
+  append_to_token_list(tokens, new_token(eof, T_EOF, line, col));
   return tokens;
 }
 
@@ -365,13 +371,14 @@ void _display_token(token_t *token) {
     type_str = "And";
     break;
   }
-  printf("Text: \033[32m%s\033[0m, type: \033[34m%s\033[0m\n", token->txt,
-         type_str);
+  printf("Text: " GRN "%s" CRESET ", type: " BLU "%s" CRESET ", position: " MAG
+         "%lu, %lu" CRESET "\n",
+         token->txt, type_str, token->position.line, token->position.col);
 }
 
 void _display_token_list(token_list_t *list) {
   for (int i = 0; i < list->token_num; i++) {
-    printf("\033[31m===== Token %d =====\033[0m\n", i);
+    printf(RED "===== Token %d =====" CRESET "\n", i);
     _display_token(list->tokens[i]);
   }
 }

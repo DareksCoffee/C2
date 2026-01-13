@@ -51,8 +51,14 @@ typedef struct {
 } keyword_t;
 
 typedef struct {
+  unsigned long line;
+  unsigned long col;
+} tkpos_t;
+
+typedef struct {
   char *txt;
   token_type_t type;
+  tkpos_t position;
 } token_t;
 
 typedef struct {
@@ -62,7 +68,8 @@ typedef struct {
 
 token_list_t *lex(const char *source);
 
-token_t *new_token(const char *txt, token_type_t type);
+token_t *new_token(const char *txt, token_type_t type, unsigned long line,
+                   unsigned long col);
 void free_token(token_t *token);
 
 token_list_t *new_token_list();

@@ -37,7 +37,7 @@ int main(void) {
          TOKEN_MAX);
   printf("Lexing time: %.6f seconds\n", elapsed);
 
-  // _display_token_list(tokens);
+  _display_token_list(tokens);
   free_token_list(tokens);
   free(src);
 

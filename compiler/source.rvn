@@ -1,6 +1,6 @@
 function printFibonnaci(numbers: int) void {
-	let a = 0;
-	let b = 1;
+	let a = 0
+	let b = 1
 	let next = 0;
 	
 	let i = 0;
