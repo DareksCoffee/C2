@@ -3,12 +3,10 @@
 #include <string.h>
 #include <time.h>
 
-#include "colors.h"
-#include "lexer/lexer.h"
-#include "macros.h"
-#include "raven.h"
-
-#include <stdio.h>
+#include "raven/colors.h"
+#include "raven/lexer/lexer.h"
+#include "raven/macros.h"
+#include "raven/raven.h"
 
 char *read_file_into_string(const char *filename) {
   FILE *file = fopen(filename, "rb");

@@ -1,13 +1,13 @@
-#include "lexer/lexer.h"
-#include "colors.h"
-#include "rvnerror.h"
-#include "rvnutils.h"
-
 #include <limits.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "raven/colors.h"
+#include "raven/error.h"
+#include "raven/lexer/lexer.h"
+#include "raven/utils.h"
 
 #define NEXT_C_OUT_OF_BOUNDS (i + 1 >= source_len)
 #define SKIP_CHAR                                                              \

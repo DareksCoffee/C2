@@ -1,5 +1,5 @@
-#include "colors.h"
-#include "rvnlog.h"
+#include "raven/logger.h"
+#include "raven/colors.h"
 
 char *_log_type_to_string(logtype_t type) {
   switch (type) {
