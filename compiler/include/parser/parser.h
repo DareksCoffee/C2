@@ -1,8 +1,8 @@
 #ifndef INCLUDE_INCLUDE_PARSER_H_
 #define INCLUDE_INCLUDE_PARSER_H_
 
-#include "lexer.h"
-#include "tree.h"
+#include "lexer/lexer.h"
+#include "parser/tree.h"
 #include <stddef.h>
 
 tree_t *parse(token_list_t *tokenstokens);

@@ -1,4 +1,4 @@
-#include "lexer.h"
+#include "lexer/lexer.h"
 #include "colors.h"
 #include "rvnerror.h"
 #include "rvnutils.h"

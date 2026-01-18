@@ -1,6 +1,6 @@
-#include "parser.h"
+#include "parser/parser.h"
 #include "macros.h"
-#include "tree.h"
+#include "parser/tree.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

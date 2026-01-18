@@ -4,7 +4,7 @@
 #include <time.h>
 
 #include "colors.h"
-#include "lexer.h"
+#include "lexer/lexer.h"
 #include "macros.h"
 #include "raven.h"
 
