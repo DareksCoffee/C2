@@ -14,7 +14,7 @@ V.(T)
 An example:
 ```
 let x: int16 = 5;
-let y: int64 = x.(int64)
+let y: int64 = x.(int64);
 ```
 
 ### You can't *downcast*.
@@ -137,7 +137,8 @@ So, I propose a module system for Raven:
 
 ## Change to concurrency
 Instead of the simple task-based concurrency model, 
-I propose completely removing **BUILT-IN** concurrency in Raven and moving it to a external mode (like in Rust).
+I propose completely removing **BUILT-IN** concurrency in Raven and moving it to a external module (like in Rust) which follows the
+usual thread model.
 
 ## Metaproperties
 Meta properties (which, depending on the final idea, might be renamed to *Special properties*), are properties which redefine behavior: operator overload functions (to allow addition of structures), properties to control how the compiler treats certain values, etc.
