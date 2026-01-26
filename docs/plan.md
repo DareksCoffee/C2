@@ -2,7 +2,7 @@ This is the plan that I will follow to develop Raven:
 
 ## Phase 1: first version of Raven
 Following [the roadmap](https://git.ddoichita.dev/nykenik24/raven#roadmap) located in `README.md`, the first version of Raven focuses purely on:
-- **Iteration**: iterating over and over and over until design is as good as it can get + has been demonstrated to be overall **good** and the compiler is fast and battle-tested.
+- **Iteration**: iterating over and over and over until design is as good as it can get + has been demonstrated to be overall well done and makes the language nice to use and the compiler is fast and battle-tested.
 - **Optimization**: 1) write something until it's finished 2) optimize 3) test, benchmark 4) repeat from step 2.
 
 ---
